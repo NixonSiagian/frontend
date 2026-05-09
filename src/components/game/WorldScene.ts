@@ -406,7 +406,7 @@ class AgentCharacter {
   private bubbleUntil = 0;
   private lastPhrase = '';
   private nextPhraseAt = 0;
-  private vis: ReturnType<typeof AGENT_VISUALS[string]>;
+  private vis: (typeof AGENT_VISUALS)[string];
   private blinkTimer = 0;
   private blinkOpen = true;
   private nextBlinkAt = 0;

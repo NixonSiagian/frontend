@@ -52,9 +52,9 @@ type QueryOptions = {
 
 type CreateTaskInput = {
   data: {
-    title: string;
-    description: string;
-    priority: "low" | "medium" | "high" | "critical";
+    title?: string;
+    description?: string;
+    priority?: "low" | "medium" | "high" | "critical";
   };
 };
 
@@ -188,9 +188,9 @@ export function useCreateTask(options?: { mutation?: { onSuccess?: (task: Task) 
     mutationFn: async (input: CreateTaskInput) => {
       const newTask: Task = {
         id: `t-${Date.now()}`,
-        title: input.data.title,
-        description: input.data.description,
-        priority: input.data.priority,
+        title: input.data.title ?? "Untitled task",
+        description: input.data.description ?? "",
+        priority: input.data.priority ?? "medium",
         status: "pending",
         progress: 0,
         logs: ["Task queued in standalone frontend mode."],
@@ -202,7 +202,7 @@ export function useCreateTask(options?: { mutation?: { onSuccess?: (task: Task) 
         {
           id: `e-${Date.now()}`,
           timestamp: nowIso(),
-          severity: "info",
+          severity: "info" as const,
           message: `Task created: ${newTask.title}`,
         },
       ].slice(-150);
