@@ -68,7 +68,7 @@ const FILE_ICONS: Record<string, string> = {
   html: '🌐', css: '🎨', js: '⚡', ts: '🔷', json: '📋',
   md: '📝', txt: '📄', py: '🐍', sh: '💻', png: '📸', jpg: '🖼️', default: '📁',
 };
-const STANDALONE_FILE_PREVIEW_MESSAGE = 'preview is unavailable in standalone frontend mode.';
+const STANDALONE_FILE_PREVIEW_MESSAGE = 'Preview is unavailable in standalone frontend mode.';
 
 function fileIcon(name: string): string {
   const ext = name.split('.').pop()?.toLowerCase() || '';
