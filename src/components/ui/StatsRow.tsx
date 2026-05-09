@@ -1,4 +1,4 @@
-import { useGetColonyStats } from "@workspace/api-client-react";
+import { useGetColonyStats } from "@/lib/api-client-react";
 
 export function StatsRow() {
   const { data: stats } = useGetColonyStats({

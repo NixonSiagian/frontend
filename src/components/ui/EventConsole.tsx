@@ -1,5 +1,5 @@
 import { useColonyStore } from "@/store/colony";
-import { useListEvents } from "@workspace/api-client-react";
+import { useListEvents } from "@/lib/api-client-react";
 import { useEffect, useRef } from "react";
 
 export function EventConsole() {

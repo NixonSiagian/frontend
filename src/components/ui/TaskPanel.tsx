@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
-import { useCreateTask, useListTasks } from "@workspace/api-client-react";
+import { useCreateTask, useListTasks } from "@/lib/api-client-react";
 import { useColonyStore } from "@/store/colony";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
