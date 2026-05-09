@@ -43,7 +43,6 @@ interface ColonyStats {
   activeAgents: number;
   colonyHealth: number;
   averageEnergy: number;
-  avgEnergy: number;
 }
 
 type QueryOptions = {
@@ -120,7 +119,6 @@ function getColonyStats(): ColonyStats {
     activeAgents,
     colonyHealth,
     averageEnergy,
-    avgEnergy: averageEnergy,
   };
 }
 

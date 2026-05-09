@@ -68,6 +68,7 @@ const FILE_ICONS: Record<string, string> = {
   html: '🌐', css: '🎨', js: '⚡', ts: '🔷', json: '📋',
   md: '📝', txt: '📄', py: '🐍', sh: '💻', png: '📸', jpg: '🖼️', default: '📁',
 };
+const STANDALONE_FILE_PREVIEW_MESSAGE = 'preview is unavailable in standalone frontend mode.';
 
 function fileIcon(name: string): string {
   const ext = name.split('.').pop()?.toLowerCase() || '';
@@ -142,7 +143,7 @@ function TaskExecutionPanel({ taskId, onClose }: TaskPanelProps) {
     setViewingFile(filename);
     setLoadingFile(true);
     setActiveTab('view');
-    setFileContent(`// "${filename}" preview is unavailable in standalone frontend mode.`);
+    setFileContent(`// "${filename}" ${STANDALONE_FILE_PREVIEW_MESSAGE}`);
     setLoadingFile(false);
   }
 
@@ -483,7 +484,7 @@ export function FloatingHUD() {
   );
   const health = stats?.colonyHealth ?? 100;
   const healthColor = health > 80 ? '#22c55e' : health > 50 ? '#eab308' : '#ef4444';
-  const avgEnergy = stats?.avgEnergy ?? 0;
+  const avgEnergy = stats?.averageEnergy ?? 0;
 
   // Events come from the store (seeded once + pushed via socket)
   const allEvents = useMemo(
