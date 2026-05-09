@@ -55,10 +55,12 @@ function Router() {
 }
 
 export default function App() {
+  const routerBase = import.meta.env.BASE_URL.replace(/\/$/, "");
+
   return (
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
-        <WouterRouter>
+        <WouterRouter base={routerBase}>
           <Router />
         </WouterRouter>
         <Toaster />
