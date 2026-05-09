@@ -9,7 +9,7 @@ import {
   useGetAgent,
   getGetAgentQueryKey,
   useCreateTask,
-} from "@workspace/api-client-react";
+} from "@/lib/api-client-react";
 import { useColonyStore } from "@/store/colony";
 
 const MINIMAP_W = 160;
@@ -68,6 +68,7 @@ const FILE_ICONS: Record<string, string> = {
   html: '🌐', css: '🎨', js: '⚡', ts: '🔷', json: '📋',
   md: '📝', txt: '📄', py: '🐍', sh: '💻', png: '📸', jpg: '🖼️', default: '📁',
 };
+const STANDALONE_FILE_PREVIEW_MESSAGE = 'Preview is unavailable in standalone frontend mode.';
 
 function fileIcon(name: string): string {
   const ext = name.split('.').pop()?.toLowerCase() || '';
@@ -142,21 +143,16 @@ function TaskExecutionPanel({ taskId, onClose }: TaskPanelProps) {
     setViewingFile(filename);
     setLoadingFile(true);
     setActiveTab('view');
-    try {
-      const base = import.meta.env.BASE_URL.replace(/\/$/, '');
-      const resp = await fetch(`${base}/api/workspace/${taskId}/content?name=${encodeURIComponent(filename)}`);
-      const text = await resp.text();
-      setFileContent(text);
-    } catch {
-      setFileContent('// Could not load file content');
-    } finally {
-      setLoadingFile(false);
-    }
+    setFileContent(`// "${filename}" ${STANDALONE_FILE_PREVIEW_MESSAGE}`);
+    setLoadingFile(false);
   }
 
   function openPreview(filename = 'index.html') {
-    const base = import.meta.env.BASE_URL.replace(/\/$/, '');
-    window.open(`${base}/api/workspace/${taskId}/preview/${filename}`, '_blank');
+    const previewHtml = `<!doctype html><html><body style="font-family: monospace; padding: 24px;"><h2>Preview unavailable</h2><p>File <strong>${filename}</strong> cannot be rendered because this build runs as a standalone frontend without backend workspace APIs.</p></body></html>`;
+    const blob = new Blob([previewHtml], { type: 'text/html' });
+    const previewUrl = URL.createObjectURL(blob);
+    window.open(previewUrl, '_blank', 'noopener,noreferrer');
+    setTimeout(() => URL.revokeObjectURL(previewUrl), 5000);
   }
 
   function getPreviewFile(): string | null {
@@ -488,7 +484,7 @@ export function FloatingHUD() {
   );
   const health = stats?.colonyHealth ?? 100;
   const healthColor = health > 80 ? '#22c55e' : health > 50 ? '#eab308' : '#ef4444';
-  const avgEnergy = stats?.avgEnergy ?? 0;
+  const avgEnergy = stats?.averageEnergy ?? 0;
 
   // Events come from the store (seeded once + pushed via socket)
   const allEvents = useMemo(

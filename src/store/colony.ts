@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import { Agent, Task, WorldEvent, WorldState } from '@workspace/api-client-react';
+import { Agent, Task, WorldEvent, WorldState } from '@/lib/api-client-react';
 
 export interface AgentTickUpdate {
   id: string;

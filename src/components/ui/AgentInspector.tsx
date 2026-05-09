@@ -1,5 +1,5 @@
 import { useColonyStore } from "@/store/colony";
-import { useGetAgent } from "@workspace/api-client-react";
+import { useGetAgent } from "@/lib/api-client-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";

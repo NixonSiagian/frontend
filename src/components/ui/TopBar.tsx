@@ -1,5 +1,5 @@
 import { useColonyStore } from "@/store/colony";
-import { useGetColonyStats, useHealthCheck } from "@workspace/api-client-react";
+import { useGetColonyStats, useHealthCheck } from "@/lib/api-client-react";
 import { Badge } from "@/components/ui/badge";
 
 export function TopBar() {
